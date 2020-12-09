@@ -4,3 +4,10 @@ This repository is a guide on how to initialize a **Symfony** project on a **Doc
 with **MySql** enabled.
 
 ## Table Of Content
+
+## Start Project
+
+## Understand Project
+
+## Conclusion
+
