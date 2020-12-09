@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # php
+  php-service:
+    container_name: php-container
+    build:
+      context: .
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/app/public
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./config/vhost.conf:/etc/apache2/sites-available/000-default.conf
+      - vendor:/var/www/html/app/vendor
+    depends_on:
+      - mysql8-service
+    networks:
+      - mynet
+
+  # mysql
+  mysql8-service:
+    image: mysql:8
+    container_name: mysql8-container
+    volumes:
+      - ./mysql:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_PASSWORD=secret
+    networks:
+      - mynet
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    networks:
+      - mynet
+      
+networks:
+  mynet:
+
+volumes:
+  vendor:
