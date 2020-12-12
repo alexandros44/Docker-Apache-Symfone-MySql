@@ -5,19 +5,19 @@ using **APACHE server**.
 
 ## Table Of Content
 
-- [Description](description)
-- [Start Project](start-project)
-    - [Run Symfony](run-symfony)
-    - [Add Symfony Libraries](add-symfony-libraries)
-    - [Add Database](add-database)
-- [Understand Project]()
-    - [Create Dockerfile](create-dockerfile)
-    - [Create Docker-Compose](create-docker-compose)
-    - [Understand vhost.conf](understand-vhost.conf)
-    - [Create Symfony App](create-symfony-app)
-    - [Vendor Volumes](vendor-volumes)
-    - [Add Database](add-database)
-- [Conclusion](conclusion)
+- [Description](#description)
+- [Start Project](#start-project)
+    - [Run Symfony](#run-symfony)
+    - [Add Symfony Libraries](#add-symfony-libraries)
+    - [Add Database](#add-database)
+- [Understand Project](#understand-project)
+    - [Create Dockerfile](#create-dockerfile)
+    - [Create Docker-Compose](#create-docker-compose)
+    - [Understand vhost.conf](#understand-vhost)
+    - [Create Symfony App](#create-symfony-app)
+    - [Vendor Volumes](#vendor-volumes)
+    - [Add Database](#add-database)
+- [Conclusion](#conclusion)
 
 ## Description
 
@@ -87,7 +87,7 @@ You can also add more containers like a `NodeJs` container for making the fronte
 Every container is connected to the same virtual network, that is why we can create the connection to the database with just calling the service container name. For more information about docker networking you look
 here: https://docs.docker.com/network/
 
-#### Understand vhost.conf
+#### Understand vhost
 
 Inside the `vhost.conf` we simply specify the container where to look for the index.php file. The defult path is `/var/www/html`.
 
