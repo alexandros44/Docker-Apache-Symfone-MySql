@@ -5,6 +5,20 @@ using **APACHE server**.
 
 ## Table Of Content
 
+- [Description](description)
+- [Start Project](start-project)
+    - [Run Symfony](run-symfony)
+    - [Add Symfony Libraries](add-symfony-libraries)
+    - [Add Database](add-database)
+- [Understand Project]()
+    - [Create Dockerfile](create-dockerfile)
+    - [Create Docker-Compose](create-docker-compose)
+    - [Understand vhost.conf](understand-vhost.conf)
+    - [Create Symfony App](create-symfony-app)
+    - [Vendor Volumes](vendor-volumes)
+    - [Add Database](add-database)
+- [Conclusion](conclusion)
+
 ## Description
 
 In the markdown file you will find out how to install all of the technologies mentioned above. Also you will find out how to run everything with just `3 commands` and you will hopefully understand how everything works. From the Apache server to the Docker container.
@@ -51,14 +65,58 @@ If you want to understand the Project we need to start from scratch. Lets assume
 
 #### Create Dockerfile
 
+1. Inside the **Dockerfile** we start by specifying the image that we are going to use. 
+2. After that we will need to download **composer**.
+3. Last step is to copy everything inside the **container**.
+
+##### Optional
+
+4. Change the working dir to **/var/www/html/app**.
+5. Download all the necessary libraries.
+
 #### Create Docker-Compose
+
+The docker-composer as we can see has three services.
+
+1. `PHP service`, main Symfony applicaiton.
+2. `SQL service`, database.
+3. `Adminer`, fancy way of database.
+
+You can also add more containers like a `NodeJs` container for making the frontend.
+
+Every container is connected to the same virtual network, that is why we can create the connection to the database with just calling the service container name. For more information about docker networking you look
+here: https://docs.docker.com/network/
 
 #### Understand vhost.conf
 
+Inside the `vhost.conf` we simply specify the container where to look for the index.php file. The defult path is `/var/www/html`.
+
+We just change the path to `{APACHE_DOCUMENT_ROOT}` which is an environmental variable. We can find the value of that variable inside the docker-compose file. (hint=`/var/www/html/app/public`)
+
 #### Create Symfony App
+
+To create the Symfony app first we need to connect to the php-service container. We can do with this command:
+```bash
+docker exec -it php-service /bin/bash
+```
+
+After we connect run `composer --help` to find out if everything is install correctly. If everything is set up run inside the container:
+```bash
+container create-project symfony/skeleton app
+```
+
+When the command finishes you will see the basic skeleton of a `symfony` application.
 
 #### Vendor Volumes
 
+In the php-service we have a volume called vendor.
+
+#### Add Database
+
+In order to set the database you can follow this [guide](https://symfony.com/doc/current/doctrine.html). 
+
+Tip: Instead of using the loopback `127.0.0.1` use the name of the `SQL service`.
 
 ## Conclusion
 
+Creating this repository helped me with `Docker`, `Symfony`, `Sql`. There are a lot of things that I still need to understand, but I think that this is a great start.
