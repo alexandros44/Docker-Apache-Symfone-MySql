@@ -109,7 +109,7 @@ When the command finishes you will see the basic skeleton of a `symfony` applica
 
 #### Vendor Volumes
 
-In the php-service we have a volume called vendor.
+In the php-service we have a volume called vendor. You can find more about docker volumes [here](https://docs.docker.com/storage/volumes/): 
 
 #### Add Database
 
